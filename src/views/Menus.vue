@@ -5,7 +5,7 @@
     <div class="col" v-for="menu in menus" :key="menu.id">
       <div class="col">
         <div class="card">
-          <img :src="getAvatar(menu)" class="card-img-top" alt="menu.menuName">
+          <img :src="getAvatar(menu)" class="card-img-top" :alt="menu.menuName">
           <div class="card-body">
             <h5 class="card-title">{{menu.menuName}}</h5>
             <p class="card-text">{{menu.quantity}} {{menu.unit}} {{ menu.menuName }} are ordered, Category {{ menu.course }}.
