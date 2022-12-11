@@ -22,28 +22,7 @@ export default {
   name: 'Menus',
   data () {
     return {
-      menus: [
-        {
-          id: 1,
-          menuName: 'Cappuccino',
-          unit: 'cup',
-          quantity: '3',
-          course: 'Drink',
-          ingsId: []
-        },
-        {
-          id: 2,
-          menuName: 'Cookies',
-          unit: 'piece',
-          quantity: '4',
-          course: 'Dessert',
-          ingsId: [
-            1,
-            2,
-            4
-          ]
-        }
-      ]
+      menus: []
     }
   },
   methods: {
@@ -54,6 +33,20 @@ export default {
         return require('../assets/cookies.jpg')
       }
     }
+  },
+  mounted () {
+    const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/menus'
+    const requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    }
+
+    fetch(endpoint, requestOptions)
+      .then(response => response.json())
+      .then(result => result.forEach(menu => {
+        this.menus.push(menu)
+      }))
+      .catch(error => console.log('error', error))
   }
 }
 </script>
