@@ -1,4 +1,3 @@
-
 <template>
   <h1>Welcome to Menus</h1>
   <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -8,8 +7,10 @@
           <img :src="getAvatar(menu)" class="card-img-top" :alt="menu.menuName">
           <div class="card-body">
             <h5 class="card-title">{{menu.menuName}}</h5>
-            <p class="card-text">{{menu.quantity}} {{menu.unit}} {{ menu.menuName }} are ordered, Category {{ menu.course }}.
-              Made by {{menu.ingsId.length}} ingredients </p>
+            <p class="card-text">
+              {{menu.quantity}} {{menu.unit}}(s) {{ menu.menuName }}, category {{ menu.course }} are ordered.
+              Include {{menu.ingsName.length}} ingredient(s).
+            </p>
           </div>
         </div>
       </div>
@@ -27,10 +28,10 @@ export default {
   },
   methods: {
     getAvatar (menu) {
-      if (menu.course === 'DRINK') {
-        return require('../assets/cappuccino.jpg')
-      } else if (menu.course === 'DESSERT') {
+      if (menu.course === 'DESSERT') {
         return require('../assets/cookies.jpg')
+      } else if (menu.course === 'DRINK') {
+        return require('../assets/cappuccino.jpg')
       }
     }
   },
@@ -40,7 +41,6 @@ export default {
       method: 'GET',
       redirect: 'follow'
     }
-
     fetch(endpoint, requestOptions)
       .then(response => response.json())
       .then(result => result.forEach(menu => {
