@@ -1,6 +1,6 @@
 <template>
   <button class="btn btn-success sticky-button" data-bs-toggle="offcanvas" data-bs-target="#recipes-create-offcanvas" aria-controls="#recipes-create-offcanvas">
-    <i class="bi bi-recipe-plus-fill"></i>
+    <i class="bi bi-bag-plus-fill"></i>
   </button>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="recipes-create-offcanvas" aria-labelledby="offcanvas-label">
     <div class="offcanvas-header">
