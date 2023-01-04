@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="total-time" class="form-label">Total</label>
+          <label for="total-time" class="form-label">Total time</label>
           <input type="text" class="form-control" id="total-time" v-model="totalTime" required>
           <div class="invalid-feedback">
             Please provide the total time to finish.
@@ -99,7 +99,9 @@ export default {
           recipeName: this.recipeName,
           category: this.category,
           portion: this.portion,
-          totalTime: this.totalTime
+          totalTime: this.totalTime,
+          ingredients: this.ingredients,
+          instruction: this.instruction
         })
         const requestOptions = {
           method: 'POST',
