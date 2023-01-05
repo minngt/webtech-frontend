@@ -10,12 +10,17 @@
       <li class="list-group-item">Portion: {{recipe.portion}}</li>
       <li class="list-group-item">Total time: {{recipe.totalTime}} (min)</li>
       <li class="list-group-item">Ingredients: {{recipe.ingredients}}</li>
-      <li class="list-group-item">Instructions: {{recipe.direction}}</li>
+      <li class="list-group-item">Instructions: {{recipe.instruction}}</li>
+      <div class="d-grid gap-2">
+        <button type="btn btn-primary me-md-2" class="btn btn-outline-warning">Update</button>
+        <button v-on:click="deleteRecipe(recipe.id)" type="btn btn-primary " class="btn btn-outline-danger">Delete</button>
+      </div>
     </ul>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'RecipeCard',
   props: {
@@ -37,6 +42,22 @@ export default {
       } else if (recipe.category === 'OTHER') {
         return require('../assets/other.jpeg')
       }
+    },
+    deleteRecipe (id) {
+      const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipes/' + id
+      const requestOptions = {
+        method: 'DELETE',
+        redirect: 'follow'
+      }
+
+      fetch(endpoint, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error))
+      this.splice(id, 1)
+    },
+    mounted () {
+      this.getData()
     }
   }
 }

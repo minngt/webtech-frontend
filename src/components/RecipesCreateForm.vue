@@ -1,6 +1,6 @@
 <template>
   <button class="btn btn-success sticky-button" data-bs-toggle="offcanvas" data-bs-target="#recipes-create-offcanvas" aria-controls="#recipes-create-offcanvas">
-    <i class="bi bi-bag-plus-fill"></i>
+    <i class="bi bi-bag-plus"></i>
   </button>
   <div class="offcanvas offcanvas-end" tabindex="-1" id="recipes-create-offcanvas" aria-labelledby="offcanvas-label">
     <div class="offcanvas-header">
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="mb-3">
-          <label for="category" class="form-label">category</label>
+          <label for="category" class="form-label">Category</label>
           <select id="category" class="form-select" v-model="category" required>
             <option value="" selected disabled>Choose...</option>
             <option value="STARTER">Starter</option>
@@ -32,28 +32,22 @@
         </div>
         <div class="mb-3">
           <label for="portion" class="form-label">Portion</label>
-          <input type="text" class="form-control" id="portion" v-model="portion" required>
-          <div class="invalid-feedback">
-            Please provide the number of portion.
-          </div>
+          <input type="text" class="form-control" id="portion">
         </div>
         <div class="mb-3">
           <label for="total-time" class="form-label">Total time</label>
-          <input type="text" class="form-control" id="total-time" v-model="totalTime" required>
-          <div class="invalid-feedback">
-            Please provide the total time to finish.
-          </div>
+          <input type="text" class="form-control" id="total-time">
         </div>
         <div class="mb-3">
           <label for="ingredients" class="form-label">Ingredients</label>
-          <input type="text" class="form-control" id="ingredients" v-model="ingredients" required>
+          <textarea class="form-control" id="ingredients" rows="5" v-model="ingredients" required></textarea>
           <div class="invalid-feedback">
             Please provide the ingredients.
           </div>
         </div>
         <div class="mb-3">
           <label for="instruction" class="form-label">Instruction</label>
-          <input type="text" class="form-control" id="instruction" v-model="instruction" required>
+          <textarea class="form-control" id="instruction" rows="5" v-model="instruction" required></textarea>
           <div class="invalid-feedback">
             Please provide the instruction.
           </div>
@@ -138,9 +132,9 @@ export default {
 <style scoped>
 .sticky-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 15px;
+  bottom: 25px;
+  right: 25px;
+  padding: 20px 20px;
   border-radius: 30px;
 }
 </style>
