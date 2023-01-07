@@ -32,11 +32,11 @@
         </div>
         <div class="mb-3">
           <label for="portion" class="form-label">Portion</label>
-          <input type="text" class="form-control" id="portion">
+          <input type="number" class="form-control" id="portion" v-model="portion" min="0" @keypress="isNumber($event)">
         </div>
         <div class="mb-3">
           <label for="total-time" class="form-label">Total time</label>
-          <input type="text" class="form-control" id="total-time">
+          <input type="number" class="form-control" id="total-time" v-model="totalTime" @keypress="isNumber($event)">
         </div>
         <div class="mb-3">
           <label for="ingredients" class="form-label">Ingredients</label>
@@ -75,7 +75,7 @@ export default {
     return {
       recipeName: '',
       category: '',
-      portion: '',
+      portion: 0,
       totalTime: '',
       ingredients: '',
       instruction: '',
@@ -124,6 +124,15 @@ export default {
       const form = document.getElementById('recipes-create-form')
       form.classList.add('was-validated')
       return form.checkValidity()
+    },
+    isNumber: function (evt) {
+      evt = (evt) || window.event
+      const charCode = (evt.which) ? evt.which : evt.keyCode
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault()
+      } else {
+        return true
+      }
     }
   }
 }
