@@ -29,13 +29,13 @@
                   <li class="list-group-item">Category: {{ recipe.category }}</li>
                   <li class="list-group-item">Portion:
                     <form class="form-floating">
-                      <input type="text" class="form-control" id="portion" v-model="portion">
+                      <input type="number" class="form-control" id="portion" v-model="portion" min="0">
                       <label for="portion">Edit portion</label>
                     </form>
                   </li>
                   <li class="list-group-item">Total time:
                     <form class="form-floating">
-                      <input type="text" class="form-control" id="total-time" v-model="totalTime">
+                      <input type="number" class="form-control" id="total-time" v-model="totalTime" min="0">
                       <label for="total-time">Edit total time</label>
                     </form>
                   </li>
