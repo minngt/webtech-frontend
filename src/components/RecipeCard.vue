@@ -73,7 +73,6 @@
               </div>
               <div class="mt-5">
                 <button class="btn btn-primary me-3" type="submit" @click.prevent="updateRecipe(recipe.id)">Update</button>
-                <button class="btn btn-secondary" type="reset">Reset</button>
               </div>
             </form>
           </div>
