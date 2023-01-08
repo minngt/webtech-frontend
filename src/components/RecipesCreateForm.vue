@@ -32,11 +32,17 @@
         </div>
         <div class="mb-3">
           <label for="portion" class="form-label">Portion</label>
-          <input type="number" class="form-control" id="portion" v-model="portion" min="0" @keypress="isNumber($event)">
+          <input type="number" class="form-control" id="portion" v-model="portion" min="1" @keypress="isNumber($event)">
+          <div class="invalid-feedback">
+            Invalid number
+          </div>
         </div>
         <div class="mb-3">
           <label for="total-time" class="form-label">Total time</label>
-          <input type="number" class="form-control" id="total-time" v-model="totalTime" @keypress="isNumber($event)">
+          <input type="number" class="form-control" id="total-time" v-model="totalTime" min="1" @keypress="isNumber($event)">
+          <div class="invalid-feedback">
+            Invalid number
+          </div>
         </div>
         <div class="mb-3">
           <label for="ingredients" class="form-label">Ingredients</label>
@@ -75,7 +81,7 @@ export default {
     return {
       recipeName: '',
       category: '',
-      portion: 0,
+      portion: '',
       totalTime: '',
       ingredients: '',
       instruction: '',
@@ -92,8 +98,8 @@ export default {
         const recipe = JSON.stringify({
           recipeName: this.recipeName,
           category: this.category,
-          portion: this.portion,
-          totalTime: this.totalTime,
+          portion: parseInt(this.portion),
+          totalTime: parseInt(this.totalTime),
           ingredients: this.ingredients,
           instruction: this.instruction
         })

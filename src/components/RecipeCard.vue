@@ -19,7 +19,7 @@
             <button type="button" id="close-offcanvas" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
-            <form class="text-start needs-validation" id="recipe-update" novalidate>
+            <form class="text-start needs-validation" novalidate id="recipe-update" >
                 <img :src="getAvatar(recipe)" class="card-img-top" :alt="recipe.recipeName">
                 <div class="card-body">
                   <h5 class="card-title">{{ recipe.recipeName }}</h5>
@@ -29,13 +29,19 @@
                   <li class="list-group-item">Category: {{ recipe.category }}</li>
                   <li class="list-group-item">Portion:
                     <form class="form-floating">
-                      <input type="number" class="form-control" id="portion" v-model="portion" min="0">
+                      <input type="number" class="form-control" id="portion" v-model="portion" min="1" @keypress="isNumber($event)">
+                      <div class="invalid-feedback">
+                        Invalid number
+                      </div>
                       <label for="portion">Edit portion</label>
                     </form>
                   </li>
                   <li class="list-group-item">Total time:
                     <form class="form-floating">
-                      <input type="number" class="form-control" id="total-time" v-model="totalTime" min="0">
+                      <input type="number" class="form-control" id="total-time" v-model="totalTime" min="1" @keypress="isNumber($event)">
+                      <div class="invalid-feedback">
+                        Invalid number
+                      </div>
                       <label for="total-time">Edit total time</label>
                     </form>
                   </li>
@@ -43,12 +49,18 @@
                     <form class="form-floating">
                       <input type="text" class="form-control" id="ingredients" v-model="ingredients" required>
                       <label for="portion">Edit Ingredients</label>
+                      <div class="invalid-feedback">
+                        Please provide the ingredients.
+                      </div>
                     </form>
                   </li>
                   <li class="list-group-item">Instructions:
                     <form class="form-floating">
                       <input type="text" class="form-control" id="instruction" v-model="instruction" required>
                       <label for="portion">Edit Instruction</label>
+                      <div class="invalid-feedback">
+                        Please provide the instruction.
+                      </div>
                     </form>
                   </li>
                 </ul>
@@ -66,7 +78,7 @@
             </form>
           </div>
         </div>
-        <button v-on:click="deleteRecipe(recipe.id)" type="btn btn-primary " class="btn btn-danger">Delete</button>
+        <button class="btn btn-danger" type="btn btn-primary " v-on:click="deleteRecipe(recipe.id)" >Delete</button>
       </div>
     </ul>
   </div>
@@ -80,8 +92,8 @@ export default {
   name: 'RecipeCard',
   data () {
     return {
-      portion: 0,
-      totalTime: 0,
+      portion: parseInt(''),
+      totalTime: parseInt(''),
       ingredients: '',
       instruction: '',
       serverValidationMessages: []
@@ -124,7 +136,6 @@ export default {
       this.splice(id, 1)
     },
     async updateRecipe (id) {
-      // if (this.validate()) {
       const endpoint = process.env.VUE_APP_BACKEND_BASE_URL + '/api/v1/recipes' + '/' + id
       const headers = new Headers()
       headers.append('Content-Type', 'application/json')
@@ -147,8 +158,27 @@ export default {
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error))
-        // const response = await fetch(endpoint, requestOptions)
-        // await this.handleResponse(response)
+    },
+    isNumber: function (evt) {
+      evt = (evt) || window.event
+      const charCode = (evt.which) ? evt.which : evt.keyCode
+      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
+        evt.preventDefault()
+      } else {
+        return true
+      }
+    },
+    validate () {
+      const forms = document.querySelectorALL('.needs-validation')
+      Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+          form.classList.add('was-validated')
+        }, false)
+      })
     }
   }
 }

@@ -9,6 +9,7 @@
 <script>
 import RecipesCardList from '@/components/RecipesCardList.vue'
 import RecipesCreateForm from '@/components/RecipesCreateForm.vue'
+
 export default {
   name: 'Recipes',
   components: {
